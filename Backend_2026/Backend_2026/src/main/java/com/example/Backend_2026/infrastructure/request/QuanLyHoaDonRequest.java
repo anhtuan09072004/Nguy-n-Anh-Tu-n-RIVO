@@ -1,5 +1,6 @@
 package com.example.Backend_2026.infrastructure.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,9 @@ public class QuanLyHoaDonRequest {
     private Integer trangThai;
     private Integer kieuHoaDon;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tuNgay;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime denNgay;
 
     private String tenKhachHang;
@@ -20,4 +23,5 @@ public class QuanLyHoaDonRequest {
 
     private Integer page = 0;
     private Integer size = 10;
+    private String sortType; // default | newest
 }

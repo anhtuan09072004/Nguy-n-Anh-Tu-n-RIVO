@@ -36,6 +36,4 @@ public interface SanPhamChiTietService {
 
     SanPhamChiTiet save(SanPhamChiTiet ctsp);
 
-    List<SanPhamChiTietResponse> getTop8();
-
 }

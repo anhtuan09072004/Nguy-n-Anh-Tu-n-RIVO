@@ -8,7 +8,9 @@ import com.example.Backend_2026.infrastructure.response.VoucherResponse;
 import com.example.Backend_2026.repository.VoucherRepository;
 import com.example.Backend_2026.service.VoucherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -56,6 +58,10 @@ public class VoucherServiceImpl implements VoucherService {
         }
         if (request.getNgayBatDau().isEqual(request.getNgayKetThuc())) {
             throw new NgoaiLe("Ngày giờ bắt đầu không được trùng với ngày giờ kết thúc.");
+        }
+        LocalDateTime now = LocalDateTime.now();
+        if (request.getNgayBatDau().isAfter(now)) {
+            throw new NgoaiLe("Ngày bắt đầu phải nhỏ hơn hoặc bằng thời điểm hiện tại");
         }
 
         Voucher entity = converter.toEntity(request);
@@ -105,6 +111,11 @@ public class VoucherServiceImpl implements VoucherService {
         if (request.getNgayBatDau().isEqual(request.getNgayKetThuc())) {
             throw new NgoaiLe("Ngày giờ bắt đầu không được trùng với ngày giờ kết thúc.");
         }
+        LocalDateTime now = LocalDateTime.now();
+
+        if (request.getNgayBatDau().isAfter(now)) {
+            throw new NgoaiLe("Ngày bắt đầu phải nhỏ hơn hoặc bằng thời điểm hiện tại");
+        }
 
 
         entity.setMa(request.getMa());
@@ -149,5 +160,32 @@ public class VoucherServiceImpl implements VoucherService {
     public Voucher findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy voucher với id = " + id));
+    }
+
+
+    @Scheduled(fixedRate = 60000) // chạy mỗi 60 giây
+    @Transactional
+    public void updateVoucherStatus() {
+        List<Voucher> vouchers = repository.findAll();
+
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Voucher v : vouchers) {
+            // Nếu hết hạn hoặc hết số lượng → chuyển trạng thái = 0
+            if (v.getNgayKetThuc().isBefore(now) || v.getSoLuong() <= 0) {
+                if (v.getTrangThai() != 0) {
+                    v.setTrangThai(0);
+                }
+            }
+
+            // Nếu còn hạn và còn số lượng → trạng thái = 1
+//            else if (v.getNgayBatDau().isBefore(now) && v.getSoLuong() > 0) {
+//                if (v.getTrangThai() != 1) {
+//                    v.setTrangThai(1);
+//                }
+//            }
+        }
+
+        repository.saveAll(vouchers);
     }
 }

@@ -16,6 +16,7 @@ public class HoaDonConverter {
         res.setId(hoaDon.getId());
         res.setTongTien(hoaDon.getTongTien());
         res.setTienGiam(hoaDon.getTienGiam());
+        res.setTienShip(hoaDon.getTienShip());
         res.setTrangThai(hoaDon.getTrangThai());
         res.setTaoLuc(hoaDon.getTaoLuc());
 
@@ -25,6 +26,11 @@ public class HoaDonConverter {
             r.setSoLuong(item.getSoLuong());
             r.setGia(item.getGia());
             r.setThanhTien(item.getGia().multiply(BigDecimal.valueOf(item.getSoLuong())));
+            r.setSoLuongTon(
+                    item.getChiTietSanPham().getSoLuong() != null
+                            ? item.getChiTietSanPham().getSoLuong()
+                            : 0
+            );
             r.setTenSanPham(item.getChiTietSanPham().getSanPham().getTen());
             r.setMauSac(item.getChiTietSanPham().getMauSac().getTen());
             r.setKichCo(item.getChiTietSanPham().getKichCo().getTen());
@@ -57,6 +63,7 @@ public class HoaDonConverter {
         res.setId(hoaDon.getId());
         res.setTongTien(hoaDon.getTongTien());
         res.setTienGiam(hoaDon.getTienGiam());
+        res.setTienShip(hoaDon.getTienShip());
         res.setTrangThai(hoaDon.getTrangThai());
         res.setTenKhachHang(hoaDon.getTenKhachHang());
         res.setSdt(hoaDon.getPhoneNumber());

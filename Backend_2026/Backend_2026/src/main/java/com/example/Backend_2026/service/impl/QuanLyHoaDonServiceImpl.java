@@ -1,9 +1,12 @@
 package com.example.Backend_2026.service.impl;
 
 import com.example.Backend_2026.entity.HoaDon;
+import com.example.Backend_2026.entity.HoaDonChiTiet;
+import com.example.Backend_2026.entity.SanPhamChiTiet;
 import com.example.Backend_2026.infrastructure.converter.QuanLyHoaDonConverter;
 import com.example.Backend_2026.infrastructure.request.QuanLyHoaDonRequest;
 import com.example.Backend_2026.infrastructure.response.QuanLyHoaDonResponse;
+import com.example.Backend_2026.repository.HoaDonChiTietRepository;
 import com.example.Backend_2026.repository.QuanLyHoaDonRepository;
 import com.example.Backend_2026.service.QuanLyHoaDonService;
 import jakarta.persistence.criteria.Predicate;
@@ -16,20 +19,32 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class QuanLyHoaDonServiceImpl implements QuanLyHoaDonService {
     private final QuanLyHoaDonRepository repo;
     private final QuanLyHoaDonConverter converter;
+    private final HoaDonChiTietRepository hoaDonChiTietRepository;
 
     @Override
     public Page<QuanLyHoaDonResponse> getAll(QuanLyHoaDonRequest request) {
 
-        Pageable pageable = PageRequest.of(
-                request.getPage(),
-                request.getSize()
-        );
+        Pageable pageable;
+
+        if ("newest".equals(request.getSortType())) {
+            pageable = PageRequest.of(
+                    request.getPage(),
+                    request.getSize(),
+                    org.springframework.data.domain.Sort.by("taoLuc").descending()
+            );
+        } else {
+            pageable = PageRequest.of(
+                    request.getPage(),
+                    request.getSize()
+            );
+        }
 
         return repo.findAll((root, query, cb) -> {
                     List<Predicate> predicates = new ArrayList<>();
@@ -44,6 +59,11 @@ public class QuanLyHoaDonServiceImpl implements QuanLyHoaDonService {
 
                     if (request.getKieuHoaDon() != null) {
                         predicates.add(cb.equal(root.get("kieuHoaDon"), request.getKieuHoaDon()));
+                    }
+                    if (request.getSdt() != null && !request.getSdt().isEmpty()) {
+                        predicates.add(
+                                cb.like(root.get("phoneNumber"), "%" + request.getSdt() + "%")
+                        );
                     }
 
                     if (request.getTuNgay() != null && request.getDenNgay() != null) {
@@ -79,15 +99,30 @@ public class QuanLyHoaDonServiceImpl implements QuanLyHoaDonService {
     }
 
     @Override
+    @Transactional
     public void huyHoaDon(Long id) {
         HoaDon hd = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy"));
 
+        // ❌ tránh hủy lại nhiều lần
+        if (hd.getTrangThai() == -1) {
+            throw new RuntimeException("Hóa đơn đã bị hủy trước đó");
+        }
+
+        // ❌ không cho hủy nếu đã hoàn thành
         if (hd.getTrangThai() == 5) {
             throw new RuntimeException("Không thể hủy hóa đơn đã thanh toán");
         }
 
-        hd.setTrangThai(-1); // hủy
-        repo.save(hd);
+        // 🔥 HOÀN KHO (cái bạn đang thiếu)
+        List<HoaDonChiTiet> list = hoaDonChiTietRepository.findByHoaDonId(id);
+
+        for (HoaDonChiTiet ct : list) {
+            SanPhamChiTiet ctsp = ct.getChiTietSanPham();
+            ctsp.setSoLuong(ctsp.getSoLuong() + ct.getSoLuong());
+        }
+
+        // 🔥 cập nhật trạng thái
+        hd.setTrangThai(6);
     }
 }

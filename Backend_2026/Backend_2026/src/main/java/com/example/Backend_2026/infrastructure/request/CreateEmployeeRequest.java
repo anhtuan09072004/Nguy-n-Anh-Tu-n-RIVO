@@ -4,11 +4,10 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
-
 public class CreateEmployeeRequest {
+
     @NotBlank(message = "Tên không được để trống")
     private String ten;
 
@@ -28,4 +27,7 @@ public class CreateEmployeeRequest {
 
     @Past(message = "Ngày sinh phải trong quá khứ")
     private LocalDate ngaySinh;
+
+    @NotNull(message = "Chức vụ không được để trống")
+    private Long vaiTroId;
 }

@@ -21,7 +21,7 @@ public enum TrangThaiHoaDon {
         return value;
     }
 
-    // 🔥 convert từ int -> enum (an toàn hơn)
+    // convert từ int -> enum (an toàn hơn)
     public static TrangThaiHoaDon fromValue(Integer value) {
         if (value == null) return CHO_XAC_NHAN;
 

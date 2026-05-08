@@ -24,4 +24,8 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, Lo
         WHERE ct.hoaDon.id = :hoaDonId
         """)
     List<HoaDonChiTiet> findFullByHoaDonId(Long hoaDonId);
+
+
+
+
 }

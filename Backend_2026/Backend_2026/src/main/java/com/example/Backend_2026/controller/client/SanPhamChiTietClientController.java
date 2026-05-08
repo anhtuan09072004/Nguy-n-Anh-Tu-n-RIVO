@@ -15,19 +15,10 @@ import java.util.List;
 @CrossOrigin("*")
 public class SanPhamChiTietClientController {
     private final SanPhamChiTietService sanPhamChiTietServiceService;
-    @GetMapping("/top8")
-    public List<SanPhamChiTietResponse> getTop8() {
-       return sanPhamChiTietServiceService.getTop8();
-    }
 
-    @GetMapping
-    public List<SanPhamChiTietResponse> getAll() {
-        return sanPhamChiTietServiceService.getAll();
+    @GetMapping("/san-pham/{sanPhamId}")
+    public List<SanPhamChiTietResponse> getBySanPhamId(
+            @PathVariable Long sanPhamId) {
+        return sanPhamChiTietServiceService.getBySanPhamId(sanPhamId);
     }
-
-    @GetMapping("/{id}")
-    public SanPhamChiTietResponse getById(@PathVariable Long id) {
-        return sanPhamChiTietServiceService.getById(id);
-    }
-
 }

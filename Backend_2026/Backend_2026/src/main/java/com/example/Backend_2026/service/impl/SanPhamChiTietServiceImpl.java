@@ -28,7 +28,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
     private final MauSacRepository mauSacRepository;
     private final HinhAnhRepository hinhAnhRepository;
 
-    // ================= CREATE =================
+    // Create
     @Override
     public SanPhamChiTietResponse create(
             SanPhamChiTietRequest request,
@@ -53,7 +53,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
         SanPhamChiTiet saved = repository.save(entity);
 
-        // ================= UPLOAD FILE =================
+        // upload file
         if (files != null && !files.isEmpty()) {
             for (MultipartFile file : files) {
                 String url;
@@ -75,7 +75,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         return converter.toResponse(saved);
     }
 
-    // sua
+    // sua////////////////////////////////////////////////////////////
     @Transactional
     @Override
     public SanPhamChiTietResponse update(Long id, SanPhamChiTietRequest request, List<MultipartFile> files) {
@@ -115,13 +115,13 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
         SanPhamChiTiet saved = repository.save(entity);
 
-        // ================= IMAGE UPDATE =================
+        // update ảnh
         if (files != null && !files.isEmpty()) {
 
-            //  XÓA ẢNH CŨ
+            //bỏ ảnh cũ
             hinhAnhRepository.deleteBySanPhamChiTietId(id);
 
-            // ✅ LƯU ẢNH MỚI
+            // lưu lai ảnh mới
             for (MultipartFile file : files) {
 
                 String url;
@@ -142,7 +142,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         return converter.toResponse(saved);
     }
 
-    // ================= GET BY ID =================
+    // ///////////////////////////////////////////////////////////////////////////////////////
     @Override
     public SanPhamChiTietResponse getById(Long id) {
 
@@ -152,7 +152,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         return converter.toResponse(entity);
     }
 
-    // ================= GET ALL =================
+    /// /////////////////////////////////////////////////////////////////////////////////////
     @Override
     public List<SanPhamChiTietResponse> getAll() {
 
@@ -174,11 +174,11 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         entity.setDaXoa(true);
         repository.save(entity);
 
-        // xoá ảnh luôn
+        // xoá ảnh kèm
         hinhAnhRepository.deleteBySanPhamChiTietId(id);
     }
 
-    // ================= GET BY SAN PHAM =================
+    // ================= Lấy theo  SPham =================///////////////////////////////////////
     @Override
     public List<SanPhamChiTietResponse> getBySanPhamId(Long sanPhamId) {
 
@@ -207,7 +207,6 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
     @Override
     public List<SanPhamChiTietResponse> search(String keyword) {
-
         // nếu rỗng → lấy tất cả
         List<SanPhamChiTiet> list;
 
@@ -226,14 +225,6 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
     @Override
     public SanPhamChiTiet save(SanPhamChiTiet ctsp) {
         return repository.save(ctsp);
-    }
-
-    @Override
-    public List<SanPhamChiTietResponse> getTop8() {
-        return repository.findTop8ByDaXoaFalseOrderByTaoLucDesc()
-                .stream()
-                .map(converter::toResponse)
-                .toList();
     }
 
 

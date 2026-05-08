@@ -15,6 +15,7 @@ public class HoaDonChiTietConverter {
         res.setHoaDonId(entity.getHoaDon().getId());
         res.setChiTietSanPhamId(entity.getChiTietSanPham().getId());
         res.setSoLuong(entity.getSoLuong());
+        res.setSoLuongTon(entity.getChiTietSanPham().getSoLuong());
         res.setGia(entity.getGia());
         res.setThanhTien(
                 entity.getGia().multiply(BigDecimal.valueOf(entity.getSoLuong()))

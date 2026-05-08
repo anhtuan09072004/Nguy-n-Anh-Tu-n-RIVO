@@ -6,6 +6,7 @@ import com.example.Backend_2026.infrastructure.converter.ThuongHieuConverter;
 import com.example.Backend_2026.infrastructure.converter.XuatXuConverter;
 import com.example.Backend_2026.infrastructure.request.ThuongHieuRequest;
 import com.example.Backend_2026.infrastructure.request.XuatXuRequest;
+import com.example.Backend_2026.infrastructure.response.SimpleResponse;
 import com.example.Backend_2026.infrastructure.response.ThuongHieuResponse;
 import com.example.Backend_2026.infrastructure.response.XuatXuResponse;
 import com.example.Backend_2026.repository.ThuongHieuRepository;
@@ -75,5 +76,13 @@ public class XuatXuServiceImpl implements XuatXuService {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy xuat xu"));
         entity.setDaXoa(true);
         repository.save(entity);
+    }
+
+    @Override
+    public List<SimpleResponse> getAllClient() {
+        return repository.findByDaXoaFalse()
+                .stream()
+                .map(m -> new SimpleResponse(m.getId(), m.getTen()))
+                .toList();
     }
 }

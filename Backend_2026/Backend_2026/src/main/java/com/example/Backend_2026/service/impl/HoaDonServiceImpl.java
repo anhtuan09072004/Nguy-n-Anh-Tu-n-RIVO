@@ -39,16 +39,6 @@ public class HoaDonServiceImpl implements HoaDonService {
 
     @Autowired
     private HoaDonChiTietConverter hoaDonChiTietConverter;
-
-//    @Override
-//    public HoaDonResponse createHoaDon(HoaDonRequest request) {
-//        HoaDon hd = new HoaDon();
-//        hd.setTrangThai(0);
-//        hd.setTongTien(BigDecimal.ZERO);
-//        hoaDonRepo.save(hd);
-//
-//        return converter.toResponse(hd, List.of());
-//    }
         @Override
         public HoaDonResponse createHoaDon(HoaDonRequest request) {
 
@@ -83,33 +73,6 @@ public class HoaDonServiceImpl implements HoaDonService {
             return converter.toResponse(hd, List.of());
         }
 
-//    @Override
-//    public HoaDonResponse addSanPham(HoaDonChiTietRequest request) {
-//        HoaDon hd = hoaDonRepo.findById(request.getHoaDonId()).orElseThrow();
-//        SanPhamChiTiet spct = spctRepo.findById(request.getChiTietSanPhamId()).orElseThrow();
-//
-//        if (spct.getSoLuong() < request.getSoLuong()) {
-//            throw new RuntimeException("Không đủ hàng");
-//        }
-//
-//        HoaDonChiTiet ct = ctRepo
-//                .findByHoaDonIdAndChiTietSanPhamId(hd.getId(), spct.getId())
-//                .orElse(null);
-//
-//        if (ct != null) {
-//            ct.setSoLuong(ct.getSoLuong() + request.getSoLuong());
-//        } else {
-//            ct = new HoaDonChiTiet();
-//            ct.setHoaDon(hd);
-//            ct.setChiTietSanPham(spct);
-//            ct.setSoLuong(request.getSoLuong());
-//            ct.setGia(spct.getGia());
-//        }
-//
-//        ctRepo.save(ct);
-//
-//        return reload(hd);
-//    }
 
     @Override
     public HoaDonResponse addSanPham(HoaDonChiTietRequest request) {
@@ -155,20 +118,6 @@ public class HoaDonServiceImpl implements HoaDonService {
         return reload(hd);
     }
 
-//    @Override
-//    public HoaDonResponse updateSoLuong(HoaDonChiTietRequest request) {
-//        HoaDonChiTiet ct = ctRepo
-//                .findByHoaDonIdAndChiTietSanPhamId(
-//                        request.getHoaDonId(),
-//                        request.getChiTietSanPhamId())
-//                .orElseThrow();
-//
-//        ct.setSoLuong(request.getSoLuong());
-//        ctRepo.save(ct);
-//
-//        return reload(ct.getHoaDon());
-//    }
-
     @Override
     public HoaDonResponse updateSoLuong(HoaDonChiTietRequest request) {
 
@@ -197,10 +146,6 @@ public class HoaDonServiceImpl implements HoaDonService {
         return reload(hd);
     }
 
-//    @Override
-//    public void removeSanPham(Long id) {
-//        ctRepo.deleteById(id);
-//    }
 
     @Override
     public HoaDonResponse removeSanPham(Long id) {
@@ -216,20 +161,6 @@ public class HoaDonServiceImpl implements HoaDonService {
         return reload(hd);
     }
 
-//    @Override
-//    public HoaDonResponse apDungVoucher(VoucherRequest request) {
-//        HoaDon hd = hoaDonRepo.findById(request.getHoaDonId()).orElseThrow();
-//        Voucher vc = voucherRepo.findByMa(request.getMaVoucher()).orElseThrow();
-//
-//        BigDecimal giam = hd.getTongTien()
-//                .multiply(vc.getPhanTramGiam());
-//
-//        hd.setTienGiam(giam);
-//        hoaDonRepo.save(hd);
-//
-//        return reload(hd);
-//    }
-
     @Override
     public HoaDonResponse apDungVoucher(VoucherRequest request) {
 
@@ -241,11 +172,6 @@ public class HoaDonServiceImpl implements HoaDonService {
         Voucher vc = voucherRepo.findByMa(request.getMaVoucher())
                 .orElseThrow(() -> new RuntimeException("Voucher không tồn tại"));
 
-        // check thời gian
-//        if (vc.getNgayBatDau().after(new Date()) ||
-//                vc.getNgayKetThuc().before(new Date())) {
-//            throw new RuntimeException("Voucher hết hạn");
-//        }
 
         if (vc.getSoLuong() <= 0) {
             throw new RuntimeException("Voucher đã hết");
@@ -273,72 +199,6 @@ public class HoaDonServiceImpl implements HoaDonService {
 
         return reload(hd);
     }
-
-//    @Override
-//    public void thanhToan(ThanhToanRequest request) {
-//        HoaDon hd = hoaDonRepo.findById(request.getHoaDonId()).orElseThrow();
-//
-//        List<HoaDonChiTiet> list = ctRepo.findByHoaDonId(hd.getId());
-//
-//        for (HoaDonChiTiet ct : list) {
-//            SanPhamChiTiet sp = ct.getChiTietSanPham();
-//            sp.setSoLuong(sp.getSoLuong() - ct.getSoLuong());
-//            spctRepo.save(sp);
-//        }
-//
-//        hd.setTrangThai(1);
-//        hoaDonRepo.save(hd);
-//    }
-@Override
-public void thanhToan(ThanhToanRequest request) {
-
-    HoaDon hd = hoaDonRepo.findById(request.getHoaDonId())
-            .orElseThrow(() -> new RuntimeException("Không tìm thấy hóa đơn"));
-
-    checkHoaDonEditable(hd);
-
-    List<HoaDonChiTiet> list = ctRepo.findByHoaDonId(hd.getId());
-
-    if (list.isEmpty()) {
-        throw new RuntimeException("Hóa đơn chưa có sản phẩm");
-    }
-
-    // check tồn kho lần cuối
-    for (HoaDonChiTiet ct : list) {
-        SanPhamChiTiet sp = ct.getChiTietSanPham();
-
-        if (sp.getSoLuong() < ct.getSoLuong()) {
-            throw new RuntimeException("Sản phẩm không đủ hàng");
-        }
-    }
-
-    // trừ kho
-    for (HoaDonChiTiet ct : list) {
-        SanPhamChiTiet sp = ct.getChiTietSanPham();
-        sp.setSoLuong(sp.getSoLuong() - ct.getSoLuong());
-        spctRepo.save(sp);
-    }
-
-    // trừ voucher
-    if (hd.getVoucher() != null) {
-        Voucher vc = hd.getVoucher();
-        vc.setSoLuong(vc.getSoLuong() - 1);
-        voucherRepo.save(vc);
-    }
-
-    if (hd.getKieuHoaDon() == 0) {
-        hd.setTrangThai(TrangThaiHoaDonConstant.HOAN_THANH);
-    } else {
-        hd.setTrangThai(TrangThaiHoaDonConstant.CHO_XAC_NHAN);
-    }
-    hd.setNgayThanhToan(LocalDateTime.now());
-
-    System.out.println(">>> BEFORE SAVE: ");
-    System.out.println("kieuHoaDon = " + request.getKieuHoaDon());
-    System.out.println("trangThai = " + hd.getTrangThai());
-
-    hoaDonRepo.save(hd);
-}
 
     private HoaDonResponse reload(HoaDon hd) {
 

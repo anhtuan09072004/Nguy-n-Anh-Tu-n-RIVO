@@ -4,32 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
 public class SanPhamResponse {
-
-//    private Long id;
-//
-//    private String ten;
-//    private String ma;
-//    private String moTa;
-//
-//    private Long chatLieuId;
-//    private Long thuongHieuId;
-//    private Long xuatXuId;
-//    private Long coAoId;
-//    private Long tayAoId;
-//
-//    private Boolean daXoa;
-//
-//    private LocalDateTime taoLuc;
-//    private LocalDateTime capNhatLuc;
-//
-//    private String taoBoi;
-//    private String capNhatBoi;
 
     private Long id;
 
@@ -44,6 +25,11 @@ public class SanPhamResponse {
     private SimpleResponse tayAo;
 
     private Boolean daXoa;
+
+    private String hinhAnh; // ✅ NEW
+
+    private BigDecimal giaMin; // ✅ NEW
+    private BigDecimal giaMax; // ✅ NEW
 
     private LocalDateTime taoLuc;
     private LocalDateTime capNhatLuc;

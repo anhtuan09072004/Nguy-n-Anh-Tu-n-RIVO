@@ -14,7 +14,7 @@ import java.util.List;
 public interface ThongKeRepository extends JpaRepository<HoaDon, Long> {
     // ================= DOANH THU =================
     @Query("""
-        SELECT COALESCE(SUM(h.tongTien),0)
+         SELECT COALESCE(SUM(h.tongTien - h.tienShip), 0)
         FROM HoaDon h
         WHERE h.trangThai = 5
         AND h.ngayThanhToan BETWEEN :start AND :end
@@ -33,28 +33,42 @@ public interface ThongKeRepository extends JpaRepository<HoaDon, Long> {
     // ================= TOP 5 BÁN CHẠY =================
     @Query("""
         SELECT new com.example.Backend_2026.infrastructure.response.TopSanPhamResponse(
-            ct.chiTietSanPham.id,
-            ct.chiTietSanPham.sanPham.ten,
+            ctsp.id,
+            sp.ten,
+            kc.ten,
+            ms.ten,
+            MIN(ha.ten),
             SUM(ct.soLuong)
         )
         FROM HoaDonChiTiet ct
+        JOIN ct.chiTietSanPham ctsp
+        JOIN ctsp.sanPham sp
+        JOIN ctsp.kichCo kc
+        JOIN ctsp.mauSac ms
+        LEFT JOIN HinhAnh ha ON ha.sanPhamChiTiet.id = ctsp.id
         WHERE ct.hoaDon.trangThai = 5
-        GROUP BY ct.chiTietSanPham.id, ct.chiTietSanPham.sanPham.ten
+        GROUP BY ctsp.id, sp.ten, kc.ten, ms.ten
         ORDER BY SUM(ct.soLuong) DESC
-    """)
+        """)
     List<TopSanPhamResponse> topBanChay(org.springframework.data.domain.Pageable pageable);
 
-    // ================= TOP 5 SẮP HẾT =================
     @Query("""
-    SELECT new com.example.Backend_2026.infrastructure.response.TonKhoResponse(
-        sp.id,
-        sp.sanPham.ten,
-        sp.soLuong
-    )
-    FROM SanPhamChiTiet sp
-    WHERE sp.daXoa = false
-    AND sp.soLuong <= 10
-    ORDER BY sp.soLuong ASC
-""")
+        SELECT new com.example.Backend_2026.infrastructure.response.TonKhoResponse(
+            sp.id,
+            sp.sanPham.ten,
+            kc.ten,
+            ms.ten,
+            MIN(ha.ten),
+            sp.soLuong
+        )
+        FROM SanPhamChiTiet sp
+        JOIN sp.kichCo kc
+        JOIN sp.mauSac ms
+        LEFT JOIN HinhAnh ha ON ha.sanPhamChiTiet.id = sp.id
+        WHERE sp.daXoa = false
+        AND sp.soLuong <= 10
+        GROUP BY sp.id, sp.sanPham.ten, kc.ten, ms.ten, sp.soLuong
+        ORDER BY sp.soLuong ASC
+        """)
     List<TonKhoResponse> topSapHet(Pageable pageable);
 }

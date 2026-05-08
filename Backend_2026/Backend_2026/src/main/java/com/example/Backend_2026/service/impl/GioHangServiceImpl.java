@@ -54,11 +54,19 @@ public class GioHangServiceImpl implements GioHangService {
                 .findByGioHangIdAndSanPhamChiTietId(gioHang.getId(), ctsp.getId())
                 .orElse(null);
 
+        int soLuongMoi = request.getSoLuong();
+
         if (ghct != null) {
-            // update số lượng
-            ghct.setSoLuong(ghct.getSoLuong() + request.getSoLuong());
+            soLuongMoi = ghct.getSoLuong() + request.getSoLuong();
+        }
+
+        if (soLuongMoi > ctsp.getSoLuong()) {
+            throw new RuntimeException("Sản phẩm không đủ số lượng");
+        }
+
+        if (ghct != null) {
+            ghct.setSoLuong(soLuongMoi);
         } else {
-            // tạo mới
             ghct = new GioHangChiTiet();
             ghct.setGioHang(gioHang);
             ghct.setSanPhamChiTiet(ctsp);
@@ -71,9 +79,31 @@ public class GioHangServiceImpl implements GioHangService {
     @Override
     public CartResponse getCart(Long taiKhoanId) {
 
+//        GioHang gioHang = gioHangRepository
+//                .findByTaiKhoanId(taiKhoanId)
+//                .orElseThrow(() -> new RuntimeException("Chưa có giỏ hàng"));
+//
+//        List<GioHangChiTietResponse> items = gioHangChiTietRepository
+//                .findByGioHangId(gioHang.getId())
+//                .stream()
+//                .map(converter::toResponse)
+//                .toList();
+//
+//        // tính tổng tiền ở đây
+//        BigDecimal total = items.stream()
+//                .map(GioHangChiTietResponse::getTongTien)
+//                .reduce(BigDecimal.ZERO, BigDecimal::add);
+//
+//        return new CartResponse(items, total);
         GioHang gioHang = gioHangRepository
                 .findByTaiKhoanId(taiKhoanId)
-                .orElseThrow(() -> new RuntimeException("Chưa có giỏ hàng"));
+                .orElseGet(() -> {
+                    GioHang gh = new GioHang();
+                    TaiKhoan tk = new TaiKhoan();
+                    tk.setId(taiKhoanId);
+                    gh.setTaiKhoan(tk);
+                    return gioHangRepository.save(gh);
+                });
 
         List<GioHangChiTietResponse> items = gioHangChiTietRepository
                 .findByGioHangId(gioHang.getId())
@@ -81,12 +111,12 @@ public class GioHangServiceImpl implements GioHangService {
                 .map(converter::toResponse)
                 .toList();
 
-        // 🔥 tính tổng tiền ở đây
         BigDecimal total = items.stream()
                 .map(GioHangChiTietResponse::getTongTien)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return new CartResponse(items, total);
+
     }
 
     @Override
@@ -95,7 +125,7 @@ public class GioHangServiceImpl implements GioHangService {
                 .findById(ghctId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm trong giỏ"));
 
-        // ❌ nếu <= 0 thì xoá luôn
+        //  nếu <= 0 thì xoá luôn
         if (soLuong <= 0) {
             gioHangChiTietRepository.delete(ghct);
             return;

@@ -6,11 +6,12 @@ import com.example.Backend_2026.service.SanPhamChiTietService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
+@Validated
 @RestController
 @RequestMapping(value = "/api/san-pham-chi-tiet", produces = "application/json")
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class SanPhamChiTietController {
 
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<?> create(
-            @RequestPart("request") SanPhamChiTietRequest request,
+            @Valid@RequestPart("request") SanPhamChiTietRequest request,
             @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) {
         return ResponseEntity.ok(service.create(request, files));
@@ -35,6 +36,7 @@ public class SanPhamChiTietController {
     @PutMapping(value = "/{id}", consumes = "multipart/form-data")
     public ResponseEntity<?> update(
             @PathVariable Long id,
+            @Valid
             @RequestPart("request") SanPhamChiTietRequest request,
             @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) {

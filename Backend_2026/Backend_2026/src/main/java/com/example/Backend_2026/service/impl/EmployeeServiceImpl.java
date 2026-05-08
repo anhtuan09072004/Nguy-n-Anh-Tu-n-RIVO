@@ -1,6 +1,5 @@
 package com.example.Backend_2026.service.impl;
 
-
 import com.example.Backend_2026.entity.TaiKhoan;
 import com.example.Backend_2026.entity.VaiTro;
 import com.example.Backend_2026.infrastructure.converter.EmployeeConverter;
@@ -18,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
+
     private final TaiKhoanRepository taiKhoanRepository;
     private final VaiTroRepository vaiTroRepository;
     private final EmployeeConverter converter;
@@ -29,8 +29,12 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new RuntimeException("Username đã tồn tại");
         }
 
-        VaiTro role = vaiTroRepository.findByTen("ADMIN")
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy role ADMIN"));
+        if (request.getVaiTroId() == null) {
+            throw new RuntimeException("Chưa chọn chức vụ");
+        }
+
+        VaiTro role = vaiTroRepository.findById(request.getVaiTroId())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy chức vụ"));
 
         TaiKhoan entity = converter.toEntity(request, role);
 
@@ -41,7 +45,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeResponse> getAll() {
         return taiKhoanRepository.findAll()
                 .stream()
-                .filter(t -> t.getVaiTro().getTen().equals("ADMIN") && !t.getDaXoa())
+                .filter(t ->
+                        t.getVaiTro() != null &&
+                                !"CUSTOMER".equalsIgnoreCase(t.getVaiTro().getTen()) &&
+                                !t.getDaXoa()
+                )
                 .map(converter::toResponse)
                 .collect(Collectors.toList());
     }
@@ -61,18 +69,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         TaiKhoan entity = taiKhoanRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy nhân viên"));
 
-        // 🔥 cập nhật thông tin
         entity.setTen(request.getTen());
         entity.setEmail(request.getEmail());
         entity.setSoDienThoai(request.getSoDienThoai());
         entity.setGioiTinh(request.getGioiTinh());
+        entity.setNgaySinh(request.getNgaySinh());
 
-        // ❌ KHÔNG cho sửa username (tránh lỗi hệ thống)
-        // entity.setUsername(request.getUsername());
-
-        // 🔥 xử lý password (QUAN TRỌNG)
-        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+        // chỉ đổi password khi có nhập
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
             entity.setPassword(request.getPassword());
+        }
+
+        // cập nhật chức vụ
+        if (request.getVaiTroId() != null) {
+            VaiTro vaiTro = vaiTroRepository.findById(request.getVaiTroId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy chức vụ"));
+
+            entity.setVaiTro(vaiTro);
         }
 
         return converter.toResponse(taiKhoanRepository.save(entity));

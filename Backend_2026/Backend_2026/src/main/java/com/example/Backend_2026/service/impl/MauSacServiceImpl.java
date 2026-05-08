@@ -4,6 +4,7 @@ import com.example.Backend_2026.entity.MauSac;
 import com.example.Backend_2026.infrastructure.converter.MauSacConverter;
 import com.example.Backend_2026.infrastructure.request.MauSacRequest;
 import com.example.Backend_2026.infrastructure.response.MauSacResponse;
+import com.example.Backend_2026.infrastructure.response.SimpleResponse;
 import com.example.Backend_2026.repository.MauSacRepository;
 import com.example.Backend_2026.service.MauSacService;
 import lombok.RequiredArgsConstructor;
@@ -71,5 +72,12 @@ public class MauSacServiceImpl implements MauSacService {
 
         entity.setDaXoa(true);
         repository.save(entity);
+    }
+    @Override
+    public List<SimpleResponse> getAllClient() {
+        return repository.findByDaXoaFalse()
+                .stream()
+                .map(m -> new SimpleResponse(m.getId(), m.getTen()))
+                .toList();
     }
 }

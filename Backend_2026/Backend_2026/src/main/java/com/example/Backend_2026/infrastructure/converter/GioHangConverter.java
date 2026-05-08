@@ -20,6 +20,7 @@ public class GioHangConverter {
                 .id(ghct.getId())
                 .chiTietSanPhamId(ctsp.getId())
                 .soLuong(ghct.getSoLuong())
+                .tonKho(ctsp.getSoLuong())
 
                 .sanPhamId(sp.getId())
                 .tenSanPham(sp.getTen())

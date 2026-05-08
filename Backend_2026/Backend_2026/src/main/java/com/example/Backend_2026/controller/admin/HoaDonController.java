@@ -40,10 +40,10 @@ public class HoaDonController {
         return service.apDungVoucher(request);
     }
 
-    @PostMapping("/thanh-toan")
-    public void thanhToan(@RequestBody ThanhToanRequest request) {
-        service.thanhToan(request);
-    }
+//    @PostMapping("/thanh-toan")
+//    public void thanhToan(@RequestBody ThanhToanRequest request) {
+//        service.thanhToan(request);
+//    }
 
     @GetMapping("/{id}")
     public HoaDonResponse  getById(@PathVariable Long id) {

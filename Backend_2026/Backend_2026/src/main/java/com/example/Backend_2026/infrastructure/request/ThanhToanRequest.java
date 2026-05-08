@@ -23,7 +23,7 @@ public class ThanhToanRequest {
     private String huyen;
     private String xa;
     private String diaChiCuThe;
-
+    private BigDecimal phiShip;
     private String ghiChu;
     private Long customerId;
 }

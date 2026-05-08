@@ -9,6 +9,7 @@ import org.hibernate.annotations.Nationalized;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
@@ -60,6 +61,9 @@ public class TaiKhoan extends PrimaryEnity {
     @Column(name = "ngay_sinh")
     @Temporal(TemporalType.DATE)
     private LocalDate ngaySinh;
+
+    @Column(name = "so_du")
+    private BigDecimal soDu;
 
     @JsonIgnoreProperties(value = {"sanPhamChiTiet", "tao_luc", "cap_nhat_luc", "tao_boi", "cap_nhat_boi", "da_xoa"})
     @OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)

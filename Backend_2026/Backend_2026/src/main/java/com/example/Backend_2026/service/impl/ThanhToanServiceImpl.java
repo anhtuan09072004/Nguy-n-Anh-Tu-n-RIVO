@@ -37,9 +37,7 @@ public class ThanhToanServiceImpl implements ThanhToanService {
 @Transactional
 public HoaDonResponse thanhToan(ThanhToanRequest request) {
 
-    // ======================
-    // 1. LẤY HÓA ĐƠN + CT
-    // ======================
+    // 1lấy hóa don + sản phẩm chi tiết
     HoaDon hd = hoaDonRepo.findById(request.getHoaDonId())
             .orElseThrow(() -> new RuntimeException("Không tìm thấy hóa đơn"));
 
@@ -49,9 +47,8 @@ public HoaDonResponse thanhToan(ThanhToanRequest request) {
         throw new RuntimeException("Hóa đơn chưa có sản phẩm");
     }
 
-    // ======================
-    // 2. TỔNG TIỀN
-    // ======================
+    // 2 lấy tổng tiền
+
     BigDecimal tongTien = list.stream()
             .map(i -> i.getGia().multiply(BigDecimal.valueOf(i.getSoLuong())))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -90,7 +87,15 @@ public HoaDonResponse thanhToan(ThanhToanRequest request) {
     // ======================
     // 4. THÀNH TIỀN
     // ======================
-    BigDecimal thanhTien = tongTien.subtract(giamGia);
+//    BigDecimal thanhTien = tongTien.subtract(giamGia);
+    BigDecimal phiShip = request.getPhiShip() != null
+            ? request.getPhiShip()
+            : BigDecimal.ZERO;
+    hd.setTienShip(phiShip);
+
+    BigDecimal thanhTien = tongTien
+            .subtract(giamGia)
+            .add(phiShip);
 
     // ======================
     // 5. VALIDATE TIỀN
@@ -106,11 +111,15 @@ public HoaDonResponse thanhToan(ThanhToanRequest request) {
     // 6. TRỪ KHO
     // ======================
     for (HoaDonChiTiet ct : list) {
-        SanPhamChiTiet sp = ct.getChiTietSanPham();
+        SanPhamChiTiet sp = spctRepo.findByIdForUpdate(
+                ct.getChiTietSanPham().getId()
+        );
 
         if (sp.getSoLuong() < ct.getSoLuong()) {
-            throw new RuntimeException("Sản phẩm không đủ hàng");
+            throw new RuntimeException( "Sản phẩm " + sp.getSanPham().getTen() +
+                    " chỉ còn " + sp.getSoLuong());
         }
+
         if (sp.getDaXoa()) {
             throw new RuntimeException("Sản phẩm đã ngừng bán");
         }
@@ -138,10 +147,11 @@ public HoaDonResponse thanhToan(ThanhToanRequest request) {
     // ======================
     hd.setTongTien(thanhTien);
     hd.setTienGiam(giamGia);
+    hd.setTienShip(phiShip);
     if (request.getKieuHoaDon() == 0) {
         hd.setTrangThai(TrangThaiHoaDonConstant.HOAN_THANH);
     } else {
-        hd.setTrangThai(TrangThaiHoaDonConstant.CHO_XAC_NHAN);
+        hd.setTrangThai(TrangThaiHoaDonConstant.DA_XAC_NHAN);
     }
     hd.setNgayThanhToan(LocalDateTime.now());
     hd.setKieuHoaDon(request.getKieuHoaDon());
@@ -175,6 +185,7 @@ public HoaDonResponse thanhToan(ThanhToanRequest request) {
     }
 
     hoaDonRepo.save(hd);
+    List<HoaDonChiTiet> newList = ctRepo.findFullByHoaDonId(hd.getId());
 
     // ======================
     // 11. LƯU THANH TOÁN
@@ -197,6 +208,6 @@ public HoaDonResponse thanhToan(ThanhToanRequest request) {
 
     lichSuRepo.save(ls);
 
-    return converter.toResponse(hd, list);
+    return converter.toResponse(hd, newList);
 }
 }

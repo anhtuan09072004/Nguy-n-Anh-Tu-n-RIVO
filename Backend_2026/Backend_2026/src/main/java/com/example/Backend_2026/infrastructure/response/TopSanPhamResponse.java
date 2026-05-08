@@ -12,5 +12,10 @@ import lombok.NoArgsConstructor;
 public class TopSanPhamResponse {
     private Long sanPhamChiTietId;
     private String tenSanPham;
+
+    private String size;     // ✅ thêm
+    private String mauSac;   // ✅ thêm
+    private String anh;
+
     private Long soLuongBan;
 }

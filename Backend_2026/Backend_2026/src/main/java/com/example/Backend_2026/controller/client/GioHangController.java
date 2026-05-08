@@ -6,6 +6,7 @@ import com.example.Backend_2026.infrastructure.response.CartResponse;
 import com.example.Backend_2026.infrastructure.response.GioHangChiTietResponse;
 import com.example.Backend_2026.service.GioHangService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +21,13 @@ public class GioHangController {
 
     // thêm vào giỏ
     @PostMapping("/add")
-    public String addToCart(@RequestBody AddToCartRequest request) {
-        gioHangService.addToCart(request);
-        return "Thêm vào giỏ hàng thành công";
+    public ResponseEntity<?> addToCart(@RequestBody AddToCartRequest request) {
+        try {
+            gioHangService.addToCart(request);
+            return ResponseEntity.ok("Thêm vào giỏ hàng thành công");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     // xem giỏ hàng

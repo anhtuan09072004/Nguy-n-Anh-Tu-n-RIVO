@@ -14,6 +14,7 @@ public class GioHangChiTietResponse {
     private Long chiTietSanPhamId;
 
     private Integer soLuong;
+    private Integer tonKho;
 
     private Long sanPhamId;
     private String tenSanPham;

@@ -13,41 +13,26 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidation(MethodArgumentNotValidException ex) {
+
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage())
+        );
+
+        return errors;
+    }
 
 //    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<ApiErrorResponse> handleRuntime(RuntimeException e) {
-//
-//        ApiErrorResponse response = new ApiErrorResponse();
-//        response.setSuccess(false);
-//        response.setMessage(e.getMessage());
+//    public ResponseEntity<?> handleRuntime(RuntimeException ex) {
 //
 //        return ResponseEntity
-//                .status(400)
-////                .contentType(org.springframework.http.MediaType.APPLICATION_JSON) // 🔥 QUAN TRỌNG
-//                .body(response);
+//                .badRequest()
+//                .body(Map.of(
+//                        "success", false,
+//                        "message", ex.getMessage()
+//                ));
 //    }
-//
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ApiErrorResponse> handleException(Exception e) {
-//
-//        ApiErrorResponse response = new ApiErrorResponse();
-//        response.setSuccess(false);
-//        response.setMessage("Lỗi hệ thống");
-//
-//        return ResponseEntity
-//                .status(500)
-////                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-//                .body(response);
-//    }
-@ExceptionHandler(MethodArgumentNotValidException.class)
-public Map<String, String> handleValidation(MethodArgumentNotValidException ex) {
-
-    Map<String, String> errors = new HashMap<>();
-
-    ex.getBindingResult().getFieldErrors().forEach(error ->
-            errors.put(error.getField(), error.getDefaultMessage())
-    );
-
-    return errors;
-}
 }

@@ -8,6 +8,7 @@ import com.example.Backend_2026.infrastructure.request.KichCoRequest;
 import com.example.Backend_2026.infrastructure.request.MauSacRequest;
 import com.example.Backend_2026.infrastructure.response.KichCoResponse;
 import com.example.Backend_2026.infrastructure.response.MauSacResponse;
+import com.example.Backend_2026.infrastructure.response.SimpleResponse;
 import com.example.Backend_2026.repository.KichCoRepository;
 import com.example.Backend_2026.repository.MauSacRepository;
 import com.example.Backend_2026.service.KichCoService;
@@ -75,6 +76,14 @@ public class KichCoServiceImpl implements KichCoService {
 
         entity.setDaXoa(true);
         repository.save(entity);
+    }
+
+    @Override
+    public List<SimpleResponse> getAllClient() {
+        return repository.findByDaXoaFalse()
+                .stream()
+                .map(m -> new SimpleResponse(m.getId(), m.getTen()))
+                .toList();
     }
 
 

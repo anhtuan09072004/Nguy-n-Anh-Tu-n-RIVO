@@ -12,4 +12,5 @@ import java.util.List;
 public interface MauSacRepository extends JpaRepository<MauSac, Long> {
     boolean existsByTen(String ten);
     boolean existsByTenAndIdNot(String ten, Long id);
+    List<MauSac> findByDaXoaFalse();
 }

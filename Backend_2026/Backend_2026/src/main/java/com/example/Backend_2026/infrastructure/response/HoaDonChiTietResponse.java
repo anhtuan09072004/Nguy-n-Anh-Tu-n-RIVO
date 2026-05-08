@@ -12,6 +12,7 @@ public class HoaDonChiTietResponse {
     private Long chiTietSanPhamId;
     private String tenSanPham;
     private Integer soLuong;
+    private Integer soLuongTon;
     private BigDecimal thanhTien;
     private BigDecimal gia;
     private String hinhAnh;

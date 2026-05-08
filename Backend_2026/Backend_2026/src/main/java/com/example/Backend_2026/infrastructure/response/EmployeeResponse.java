@@ -16,4 +16,5 @@ public class EmployeeResponse {
     private String soDienThoai;
     private String gioiTinh;
     private LocalDate ngaySinh;
+    private String vaiTro;
 }

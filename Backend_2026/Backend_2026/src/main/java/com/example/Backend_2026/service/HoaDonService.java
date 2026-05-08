@@ -20,15 +20,13 @@ public interface HoaDonService {
 
     HoaDonResponse apDungVoucher(VoucherRequest request);
 
-    void thanhToan(ThanhToanRequest request);
-
     HoaDon save(HoaDon hoaDon);
 
     HoaDon findById(Long id);
 
     HoaDonResponse getHoaDonResponse(Long id);
 
-    // 🔥 BONUS (rất nên có)
+    //
     List<HoaDonResponse> getAllChuaThanhToan();
 
     List<HoaDonResponse> search(HoaDonSearchRequest request);

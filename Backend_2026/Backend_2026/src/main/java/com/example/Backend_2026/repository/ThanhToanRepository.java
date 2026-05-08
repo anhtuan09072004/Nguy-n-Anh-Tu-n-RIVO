@@ -8,7 +8,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(exported = false)
 public interface ThanhToanRepository extends JpaRepository<ThanhToan, Long> {
 
-//    boolean existsByTen(String ten);
-//    boolean existsByTenAndIdNot(String ten, Long id);
 
 }

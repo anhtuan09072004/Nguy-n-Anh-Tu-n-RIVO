@@ -7,6 +7,7 @@ import com.example.Backend_2026.infrastructure.converter.ThuongHieuConverter;
 import com.example.Backend_2026.infrastructure.request.ChatLieuRequest;
 import com.example.Backend_2026.infrastructure.request.ThuongHieuRequest;
 import com.example.Backend_2026.infrastructure.response.ChatLieuResponse;
+import com.example.Backend_2026.infrastructure.response.SimpleResponse;
 import com.example.Backend_2026.infrastructure.response.ThuongHieuResponse;
 import com.example.Backend_2026.repository.ChatLieuRepository;
 import com.example.Backend_2026.repository.ThuongHieuRepository;
@@ -76,5 +77,13 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
 
         entity.setDaXoa(true);
         repository.save(entity);
+    }
+
+    @Override
+    public List<SimpleResponse> getAllClient() {
+        return repository.findByDaXoaFalse()
+                .stream()
+                .map(m -> new SimpleResponse(m.getId(), m.getTen()))
+                .toList();
     }
 }

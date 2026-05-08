@@ -31,6 +31,7 @@ public class EmployeeConverter {
                 .soDienThoai(entity.getSoDienThoai())
                 .gioiTinh(entity.getGioiTinh())
                 .ngaySinh(entity.getNgaySinh())
+                .vaiTro(entity.getVaiTro() != null ? entity.getVaiTro().getTen() : null)
                 .build();
     }
 }

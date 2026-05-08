@@ -1,12 +1,14 @@
 package com.example.Backend_2026.repository;
 
 import com.example.Backend_2026.entity.HoaDon;
+import com.example.Backend_2026.entity.HoaDonChiTiet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
     List<HoaDon> findByTrangThai(Integer trangThai);
@@ -31,5 +33,9 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
             @Param("fromDate") LocalDateTime fromDate,
             @Param("toDate") LocalDateTime toDate
     );
+
+
+    // lấy đơn đặt hàng theo id
+    List<HoaDon> findByKhachHangIdAndKieuHoaDonOrderByTaoLucDesc(Long userId, Integer kieuHoaDon);
 
 }

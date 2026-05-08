@@ -3,7 +3,9 @@ package com.example.Backend_2026.repository;
 import com.example.Backend_2026.entity.SanPham;
 import com.example.Backend_2026.entity.SanPhamChiTiet;
 import com.example.Backend_2026.infrastructure.response.SanPhamChiTietResponse;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -13,10 +15,7 @@ import java.util.List;
 @RepositoryRestResource(exported = false)
 public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, Long> {
 
-//    boolean existsByTen(String ten);
-//    boolean existsByTenAndIdNot(String ten, Long id);
     List<SanPhamChiTiet> findBySanPhamIdAndDaXoaFalse(Long sanPhamId);
-    List<SanPhamChiTiet> findTop8ByDaXoaFalseOrderByTaoLucDesc();
 
     boolean existsBySanPhamIdAndKichCoIdAndMauSacIdAndDaXoaFalse(
             Long sanPhamId, Long kichCoId, Long mauSacId
@@ -43,4 +42,9 @@ public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
         )
     """)
     List<SanPhamChiTiet> search(@Param("keyword") String keyword);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select sp from SanPhamChiTiet sp where sp.id = :id")
+    SanPhamChiTiet findByIdForUpdate(Long id);
+
 }
