@@ -1,0 +1,98 @@
+.product-list {
+  width: 100%;
+}
+
+/* BOX */
+.search-box {
+  position: relative;
+}
+
+/* INPUT */
+.search-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* DROPDOWN (overlay) */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 5px;
+
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* CARD */
+.card {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #f5f5f5;
+}
+
+/* IMAGE */
+.product-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* INFO */
+.info {
+  flex: 1;
+  font-size: 13px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.price {
+  color: red;
+  font-weight: bold;
+}
+
+.meta {
+  color: #555;
+}
+
+.stock {
+  color: green;
+}
+
+.out-stock {
+  color: gray;
+}
+
+/* BUTTON */
+.btn-add {
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background: #0d6efd;
+}

@@ -1,0 +1,132 @@
+.customer-page {
+  padding: 28px 32px;
+  min-height: 100%;
+  background: #f5f7fb;
+}
+
+.customer-page-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.customer-page h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.customer-page-toolbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 18px;
+}
+
+.customer-page .ant-btn-primary {
+  border-radius: 10px;
+  height: 40px;
+  padding: 0 18px;
+  font-weight: 600;
+}
+
+.customer-page .ant-table-wrapper {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+}
+
+.customer-page .ant-table {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.customer-page .ant-table-thead > tr > th {
+  background: #f8fafc !important;
+  color: #334155;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.customer-page .ant-table-tbody > tr > td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.customer-page .ant-table-tbody > tr:hover > td {
+  background: #f8fbff !important;
+}
+
+.customer-page .ant-btn {
+  border-radius: 9px;
+}
+
+.customer-page .ant-btn-default:hover {
+  border-color: #1677ff;
+  color: #1677ff;
+}
+
+.customer-page .ant-btn + .ant-btn {
+  margin-left: 8px;
+}
+
+.customer-page .ant-modal-content {
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.customer-page .ant-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.customer-page .ant-input,
+.customer-page .ant-select-selector,
+.customer-page .ant-picker {
+  border-radius: 10px !important;
+}
+
+.customer-page {
+  padding: 28px 32px;
+  background: #f5f7fb;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.customer-page-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.customer-page-header h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.customer-page-toolbar {
+  margin-bottom: 18px;
+}
+
+.customer-table-wrap {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.customer-table-wrap .ant-table {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.customer-table-wrap .ant-table-thead > tr > th {
+  background: #eff6ff !important;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.customer-table-wrap .ant-table-tbody > tr:hover > td {
+  background: #f8fbff !important;
+}

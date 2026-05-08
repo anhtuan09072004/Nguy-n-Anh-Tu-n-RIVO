@@ -1,0 +1,145 @@
+/* ===== PAGE WRAPPER ===== */
+.sanpham-page .container {
+  width: 95%;
+  margin: 20px auto;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* ===== TITLE ===== */
+.sanpham-page h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* ===== FORM ===== */
+.sanpham-page .form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* input + select */
+.sanpham-page .form input,
+.sanpham-page .form select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  min-width: 180px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+/* focus */
+.sanpham-page .form input:focus,
+.sanpham-page .form select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+}
+
+/* ===== BUTTON ===== */
+.sanpham-page .form button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* button chính */
+.sanpham-page .form button:first-of-type {
+  background: #22c55e;
+  color: white;
+}
+
+/* button huỷ */
+.sanpham-page .form button:last-of-type {
+  background: #ef4444;
+  color: white;
+}
+
+/* hover */
+.sanpham-page .form button:hover {
+  opacity: 0.9;
+}
+
+/* disabled */
+.sanpham-page button:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* ===== ERROR ===== */
+.sanpham-page .error {
+  color: #dc2626;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+/* ===== TABLE ===== */
+.sanpham-page table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* header */
+.sanpham-page table th {
+  background: #1f2937;
+  color: white;
+  padding: 10px;
+  font-weight: 500;
+}
+
+/* cell */
+.sanpham-page table td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* row xen kẽ */
+.sanpham-page table tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+/* hover row */
+.sanpham-page table tr:hover {
+  background: #eef2ff;
+}
+
+/* ===== ACTION BUTTON ===== */
+.sanpham-page table button {
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin: 2px;
+}
+
+/* sửa */
+.sanpham-page table button:first-child {
+  background: #3b82f6;
+  color: white;
+}
+
+/* chi tiết */
+.sanpham-page table button:last-child {
+  background: #6366f1;
+  color: white;
+}
+
+/* hover */
+.sanpham-page table button:hover {
+  opacity: 0.85;
+}

@@ -1,0 +1,291 @@
+/* =====================================================
+   🌍 GLOBAL / DÙNG CHUNG (List + Detail)
+===================================================== */
+
+.qlhd-container {
+  padding: 24px;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* ===== INPUT / SELECT ===== */
+.input,
+.select {
+  padding: 10px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.input:focus,
+.select:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 0 2px rgba(78,115,223,0.1);
+}
+
+/* ===== TABLE CHUNG ===== */
+.table-box {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f5f7fb;
+}
+
+th {
+  padding: 14px;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #666;
+}
+
+td {
+  padding: 14px;
+  font-size: 14px;
+  color: #333;
+}
+
+tr {
+  transition: 0.2s;
+}
+
+tr:hover {
+  background: #f9fbff;
+}
+
+/* ===== STATUS BADGE ===== */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pending { background: #fff3cd; color: #856404; }
+.confirm { background: #d1ecf1; color: #0c5460; }
+.shipping { background: #e2d9f3; color: #4b2e83; }
+.done { background: #d4edda; color: #155724; }
+.cancel { background: #f8d7da; color: #721c24; }
+
+/* ===== BUTTON CHUNG ===== */
+.actions button {
+  margin: 0 3px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions button:first-child {
+  background: #36b9cc;
+  color: white;
+}
+
+.actions button:first-child:hover {
+  background: #2c9faf;
+}
+
+.btn-cancel {
+  background: #e74a3b;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #c0392b;
+}
+
+
+
+/* =====================================================
+   📋 TRANG LIST HÓA ĐƠN
+===================================================== */
+
+/* ===== FILTER ===== */
+.filter-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* ===== BUTTON SEARCH ===== */
+.btn-search {
+  background: linear-gradient(135deg, #4e73df, #224abe);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-search:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(78,115,223,0.3);
+}
+
+/* ===== PAGINATION ===== */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: none;
+  background: #e4e6ef;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #4e73df;
+  color: white;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 14px;
+  color: #555;
+}
+
+
+
+/* =====================================================
+   🔍 TRANG CHI TIẾT HÓA ĐƠN
+===================================================== */
+
+/* ===== BOX THÔNG TIN ===== */
+.detail-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.detail-box p {
+  margin: 8px 0;
+}
+
+/* ===== ĐỊA CHỈ ===== */
+.address {
+  color: #555;
+}
+
+/* ===== STATUS HỦY ===== */
+.status-cancel {
+  background: #ffe5e5;
+  color: #d63031;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* ===== ẢNH SẢN PHẨM ===== */
+.img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+
+
+/* =====================================================
+   🚚 STEP TRẠNG THÁI (DETAIL)
+===================================================== */
+
+.step-wrapper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 40px 0;
+}
+
+/* line nền */
+.step-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #ddd;
+}
+
+/* mỗi step */
+.step-item {
+  text-align: center;
+  flex: 1;
+  position: relative;
+}
+
+/* circle */
+.step-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ccc;
+  color: white;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+/* đã hoàn thành */
+.step-circle.active {
+  background: #28a745;
+  transform: scale(1.1);
+}
+
+/* bước tiếp theo */
+.step-circle.next {
+  background: #ffc107;
+}
+
+/* hover */
+.step-circle:hover {
+  transform: scale(1.1);
+}
+
+/* label */
+.step-label {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #555;
+}

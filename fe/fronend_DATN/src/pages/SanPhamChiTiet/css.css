@@ -1,0 +1,234 @@
+.product-detail {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* LEFT: IMAGE */
+.product-images {
+  width: 40%;
+}
+
+.product-images img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.image-list {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.image-list img {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.image-list img:hover {
+  border-color: #1890ff;
+}
+
+/* RIGHT: INFO */
+.product-info {
+  width: 60%;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.product-price {
+  color: red;
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+/* SELECT */
+.select-group {
+  margin-top: 15px;
+}
+
+.select-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.select-group select {
+  width: 200px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* BUTTON */
+.btn-add {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #1677ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background-color: #0958d9;
+}
+
+/* ERROR */
+.error-msg {
+  color: red;
+  margin-top: 10px;
+}
+
+.ctsp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* HEADER */
+.ctsp-table thead {
+  background: #1677ff;
+  color: #fff;
+}
+
+.ctsp-table th {
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* BODY */
+.ctsp-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+/* HOVER */
+.ctsp-table tbody tr:hover {
+  background: #f5faff;
+  transition: 0.2s;
+}
+
+/* ROW ĐANG EDIT */
+.ctsp-table tbody tr[style] {
+  transition: 0.2s;
+}
+
+/* ẢNH */
+.ctsp-table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+/* BUTTON */
+.ctsp-table button {
+  padding: 6px 12px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+/* NÚT SỬA */
+.ctsp-table button:first-child {
+  background: #faad14;
+  color: #fff;
+}
+
+.ctsp-table button:first-child:hover {
+  background: #d48806;
+}
+
+/* NÚT XÓA */
+.ctsp-table button:last-child {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.ctsp-table button:last-child:hover {
+  background: #cf1322;
+}
+
+/* DISABLED */
+.ctsp-table button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* NO IMAGE TEXT */
+.ctsp-table span {
+  font-size: 13px;
+  color: #999;
+}
+
+/* FORM */
+.ctsp-form {
+  margin-top: 20px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* INPUT + SELECT */
+.ctsp-form input,
+.ctsp-form select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+/* FILE */
+.ctsp-form input[type="file"] {
+  border: none;
+}
+
+/* BUTTON */
+.ctsp-form button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #1677ff;
+  color: white;
+}
+
+.ctsp-form button:hover {
+  background: #0958d9;
+}
+
+/* BUTTON HỦY */
+.ctsp-form button:last-child {
+  background: #999;
+}
+
+.ctsp-form button:last-child:hover {
+  background: #666;
+}

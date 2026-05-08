@@ -1,0 +1,128 @@
+/* ===== PAGE CONTAINER ===== */
+.container {
+  max-width: 950px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f8fafc;
+}
+
+/* ===== TITLE ===== */
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1f2937;
+  font-size: 22px;
+}
+
+/* ===== FORM ===== */
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.form input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.form input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
+}
+
+/* ===== BUTTON BASE ===== */
+button {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+/* ADD BUTTON */
+.btn-add {
+  background: #22c55e;
+  color: white;
+}
+
+/* UPDATE BUTTON */
+.btn-update {
+  background: #3b82f6;
+  color: white;
+}
+
+/* CANCEL BUTTON */
+.btn-cancel {
+  background: #6b7280;
+  color: white;
+}
+
+/* EDIT BUTTON */
+.btn-edit {
+  background: #facc15;
+  color: #000;
+  margin-right: 5px;
+}
+
+/* DELETE BUTTON */
+.btn-delete {
+  background: #ef4444;
+  color: white;
+}
+
+/* ===== TABLE ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+th {
+  background: #f3f4f6;
+  padding: 12px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+td {
+  text-align: center;
+  padding: 12px;
+  border-bottom: 1px solid #f1f1f1;
+  color: #374151;
+}
+
+/* ===== STATUS ===== */
+.status-active {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.status-inactive {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+/* ===== EMPTY DATA ===== */
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #9ca3af;
+}

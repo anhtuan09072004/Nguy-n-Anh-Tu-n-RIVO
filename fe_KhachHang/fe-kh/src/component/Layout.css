@@ -1,0 +1,386 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+  line-height: 1.4;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== HEADER TOP ===== */
+.header-top {
+  background: linear-gradient(180deg, #ee4d2d 0%, #f35f3d 100%);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 13px;
+}
+
+.header-top-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #ffffff;
+  border-bottom: 1px solid #ececec;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 76px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ===== LOGO ===== */
+.logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ===== MENU ===== */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.menu-item {
+  position: relative;
+  color: #333;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s;
+  padding: 4px 0;
+}
+
+.menu-item:hover {
+  color: #ee4d2d;
+}
+
+.menu-item.active {
+  color: #ee4d2d;
+  font-weight: 600;
+}
+
+.menu-item.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: #ee4d2d;
+}
+
+/* ===== ACTIONS ===== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actions span {
+  font-size: 14px;
+  color: #444;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+}
+
+.btn:hover {
+  border-color: #ee4d2d;
+  color: #ee4d2d;
+}
+
+.btn.primary {
+  background: #ee4d2d;
+  color: white;
+  border-color: #ee4d2d;
+}
+
+.btn.primary:hover {
+  background: #d84324;
+  border-color: #d84324;
+  color: white;
+}
+
+/* ===== CONTENT ===== */
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px 18px;
+}
+
+/* ===== COMMON CARD ===== */
+.card {
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #ececec;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 40px;
+  background: #ffffff;
+  border-top: 1px solid #e8e8e8;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 38px 18px 28px;
+
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer-col h4 {
+  font-size: 15px;
+  color: #222;
+  margin-bottom: 14px;
+}
+
+.footer-col p,
+.footer-col a {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 4px;
+  transition: 0.2s;
+}
+
+.footer-col a:hover {
+  color: #ee4d2d;
+}
+
+.footer-bottom {
+  border-top: 1px solid #eee;
+  text-align: center;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #999;
+}
+
+/* ===== PRODUCT LIST DEMO ===== */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  border-color: #ee4d2d;
+  box-shadow: 0 6px 18px rgba(238, 77, 45, 0.08);
+}
+
+/* ===== BANNER ===== */
+.banner-wrapper {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.banner {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .header-container {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 14px 18px;
+    gap: 12px;
+  }
+
+  .menu {
+    width: 100%;
+    order: 3;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .product-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .menu {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .menu-item {
+    font-size: 14px;
+  }
+
+  .actions span {
+    display: none;
+  }
+
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .banner {
+    height: 200px;
+  }
+
+  
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.search-box {
+  flex: 1;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  height: 42px;
+  border: 2px solid #ee4d2d;
+  border-right: none;
+  padding: 0 14px;
+  outline: none;
+  border-radius: 6px 0 0 6px;
+  font-size: 14px;
+}
+
+.search-btn {
+  height: 42px;
+  padding: 0 18px;
+  border: none;
+  background: #ee4d2d;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0 6px 6px 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.menu-wrapper {
+  border-top: 1px solid #f1f1f1;
+  background: white;
+}
+
+.menu {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.logout-btn {
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 6px;
+  background: #ee4d2d;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #d73211;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-user {
+  font-size: 14px;
+  color: #333;
+}

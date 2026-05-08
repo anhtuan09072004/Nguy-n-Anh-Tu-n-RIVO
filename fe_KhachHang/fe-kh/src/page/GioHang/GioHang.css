@@ -1,0 +1,259 @@
+/* =========================
+   GIO HANG
+========================= */
+
+.gh-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+/* ===== HEADER ===== */
+.gh-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.gh-header-top h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+}
+
+.gh-header-top span {
+  font-size: 13px;
+  color: #777;
+}
+
+/* ===== EMPTY ===== */
+.gh-empty {
+  background: #fff;
+  border-radius: 14px;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.gh-empty p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* ===== TABLE HEAD ===== */
+.gh-table-head {
+  display: grid;
+  grid-template-columns: 3fr 110px 120px 130px 60px;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  background: #fff;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #777;
+}
+
+/* ===== LIST ===== */
+.gh-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===== ROW ===== */
+.gh-row {
+  display: grid;
+  grid-template-columns: 3fr 110px 120px 130px 60px;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+/* ===== PRODUCT ===== */
+.gh-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.gh-img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #f1f1f1;
+  flex-shrink: 0;
+}
+
+.gh-product-info {
+  min-width: 0;
+}
+
+.gh-product-info h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.35;
+}
+
+.gh-product-info p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #777;
+}
+
+/* ===== PRICE ===== */
+.gh-price {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* ===== QUANTITY ===== */
+.gh-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.gh-qty button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.gh-qty span {
+  width: 34px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===== SUBTOTAL ===== */
+.gh-subtotal {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ee4d2d;
+  white-space: nowrap;
+}
+
+/* ===== DELETE ===== */
+.gh-delete button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #999;
+}
+
+/* ===== FOOTER ===== */
+.gh-footer {
+  margin-top: 18px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gh-summary p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.gh-summary span {
+  margin-left: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ee4d2d;
+}
+
+/* ===== ACTIONS ===== */
+.gh-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.gh-continue-btn,
+.gh-checkout-btn {
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.gh-continue-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.gh-checkout-btn {
+  background: #ee4d2d;
+  color: #fff;
+  border: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .gh-table-head {
+    display: none;
+  }
+
+  .gh-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .gh-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .gh-actions {
+    width: 100%;
+  }
+
+  .gh-continue-btn,
+  .gh-checkout-btn {
+    flex: 1;
+  }
+}
+
+.gh-empty-btn {
+  margin-top: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.gh-empty-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
